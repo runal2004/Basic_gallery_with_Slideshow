@@ -2,24 +2,50 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Full-Page Image Gallery</title>
+    <title>Gallery + Slideshow</title>
 
     <style>
       body {
         font-family: Arial, sans-serif;
         background: #f2f2f2;
         margin: 0;
-        padding: 30px;
+        padding: 10px;
       }
 
       h2 {
         text-align: center;
         font: 300;
         font-size: 32px;
-        margin-top: 10px;
-        margin-bottom: 28px;
+        margin-top: 3px;
+        margin-bottom: 10px;
         font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
           sans-serif;
+      }
+
+      .menu {
+        text-align: center;
+        margin-top: 5px;
+        margin-bottom: 15px;
+      }
+      .menu button {
+        padding: 12px 25px;
+        margin: 10px;
+        border: none;
+        background: #444;
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      .menu button:hover {
+        background: #222;
+      }
+
+      section {
+        display: none;
+      }
+      section.active {
+        display: block;
       }
 
       .gallery {
@@ -27,7 +53,6 @@
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
         gap: 20px;
       }
-
       .gallery img {
         width: 100%;
         height: 180px;
@@ -36,7 +61,6 @@
         cursor: pointer;
         transition: transform 0.3s ease;
       }
-
       .gallery img:hover {
         transform: scale(1.05);
       }
@@ -51,13 +75,10 @@
         z-index: 10;
         background: rgba(255, 255, 255, 0.3);
         animation: fadeIn 0.25s ease;
-        text-decoration: none;
       }
-
       .lightbox:target {
         display: flex;
       }
-
       .lightbox img {
         width: auto;
         height: 80vh;
@@ -76,7 +97,6 @@
           opacity: 1;
         }
       }
-
       @keyframes zoomIn {
         from {
           transform: scale(0.5);
@@ -87,60 +107,183 @@
           opacity: 1;
         }
       }
+
+      .slideshow-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      .slideshow {
+        width: 600px;
+        height: 350px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+      }
+
+      .slideshow img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        animation: slideAnimation 40s infinite;
+      }
+
+      /* Animation delays */
+      .slideshow img:nth-child(1) {
+        animation-delay: 0s;
+      }
+      .slideshow img:nth-child(2) {
+        animation-delay: 4s;
+      }
+      .slideshow img:nth-child(3) {
+        animation-delay: 8s;
+      }
+      .slideshow img:nth-child(4) {
+        animation-delay: 12s;
+      }
+      .slideshow img:nth-child(5) {
+        animation-delay: 16s;
+      }
+      .slideshow img:nth-child(6) {
+        animation-delay: 20s;
+      }
+      .slideshow img:nth-child(7) {
+        animation-delay: 24s;
+      }
+      .slideshow img:nth-child(8) {
+        animation-delay: 28s;
+      }
+      .slideshow img:nth-child(9) {
+        animation-delay: 32s;
+      }
+      .slideshow img:nth-child(10) {
+        animation-delay: 36s;
+      }
+
+      @keyframes slideAnimation {
+        0% {
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        30% {
+          opacity: 1;
+        }
+        40% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
     </style>
   </head>
 
   <body>
-    <h2>Gallery</h2>
-
-    <div class="gallery">
-      <a href="#img1"><img src="images/photo1.jpg" /></a>
-      <a href="#img2"><img src="images/photo2.jpg" /></a>
-      <a href="#img3"><img src="images/photo3.jpg" /></a>
-      <a href="#img4"><img src="images/photo4.jpg" /></a>
-
-      <a href="#img5"><img src="images/photo5.jpg" /></a>
-      <a href="#img6"><img src="images/photo6.jpg" /></a>
-      <a href="#img7"><img src="images/photo7.jpg" /></a>
-      <a href="#img8"><img src="images/photo8.jpg" /></a>
-
-      <a href="#img9"><img src="images/photo9.jpg" /></a>
-      <a href="#img10"><img src="images/photo10.jpg" /></a>
-      <a href="#img11"><img src="images/photo11.jpg" /></a>
-      <a href="#img12"><img src="images/photo12.jpg" /></a>
-
-      <a href="#img13"><img src="images/photo13.jpg" /></a>
-      <a href="#img14"><img src="images/photo14.jpg" /></a>
-      <a href="#img15"><img src="images/photo15.jpg" /></a>
-      <a href="#img16"><img src="images/photo16.jpg" /></a>
-
-      <a href="#img17"><img src="images/photo17.jpg" /></a>
-      <a href="#img18"><img src="images/photo18.jpg" /></a>
+    <!-- NAVIGATION -->
+    <div class="menu">
+      <button onclick="showSection('gallerySection')">Gallery</button>
+      <button onclick="showSection('slideshowSection')">Slideshow</button>
     </div>
 
-    <!-- Lightboxes (Click ANYWHERE to close) -->
+    <!-- GALLERY SECTION -->
+    <section id="gallerySection" class="active">
+      <h2>Gallery</h2>
 
-    <a href="#" id="img1" class="lightbox"><img src="images/photo1.jpg" /></a>
-    <a href="#" id="img2" class="lightbox"><img src="images/photo2.jpg" /></a>
-    <a href="#" id="img3" class="lightbox"><img src="images/photo3.jpg" /></a>
-    <a href="#" id="img4" class="lightbox"><img src="images/photo4.jpg" /></a>
+      <div class="gallery">
+        <a href="#img1"><img src="images/photo1.jpg" /></a>
+        <a href="#img2"><img src="images/photo2.jpg" /></a>
+        <a href="#img3"><img src="images/photo3.jpg" /></a>
+        <a href="#img4"><img src="images/photo4.jpg" /></a>
+        <a href="#img5"><img src="images/photo5.jpg" /></a>
+        <a href="#img6"><img src="images/photo6.jpg" /></a>
+        <a href="#img7"><img src="images/photo7.jpg" /></a>
+        <a href="#img8"><img src="images/photo8.jpg" /></a>
+        <a href="#img9"><img src="images/photo9.jpg" /></a>
+        <a href="#img10"><img src="images/photo10.jpg" /></a>
+        <a href="#img11"><img src="images/photo11.jpg" /></a>
+        <a href="#img12"><img src="images/photo12.jpg" /></a>
+        <a href="#img13"><img src="images/photo13.jpg" /></a>
+        <a href="#img14"><img src="images/photo14.jpg" /></a>
+        <a href="#img15"><img src="images/photo15.jpg" /></a>
+        <a href="#img16"><img src="images/photo16.jpg" /></a>
+        <a href="#img17"><img src="images/photo17.jpg" /></a>
+        <a href="#img18"><img src="images/photo18.jpg" /></a>
+      </div>
 
-    <a href="#" id="img5" class="lightbox"><img src="images/photo5.jpg" /></a>
-    <a href="#" id="img6" class="lightbox"><img src="images/photo6.jpg" /></a>
-    <a href="#" id="img7" class="lightbox"><img src="images/photo7.jpg" /></a>
-    <a href="#" id="img8" class="lightbox"><img src="images/photo8.jpg" /></a>
+      <!-- Lightboxes for all 18 images -->
+      <a href="#" id="img1" class="lightbox"><img src="images/photo1.jpg" /></a>
+      <a href="#" id="img2" class="lightbox"><img src="images/photo2.jpg" /></a>
+      <a href="#" id="img3" class="lightbox"><img src="images/photo3.jpg" /></a>
+      <a href="#" id="img4" class="lightbox"><img src="images/photo4.jpg" /></a>
+      <a href="#" id="img5" class="lightbox"><img src="images/photo5.jpg" /></a>
+      <a href="#" id="img6" class="lightbox"><img src="images/photo6.jpg" /></a>
+      <a href="#" id="img7" class="lightbox"><img src="images/photo7.jpg" /></a>
+      <a href="#" id="img8" class="lightbox"><img src="images/photo8.jpg" /></a>
+      <a href="#" id="img9" class="lightbox"><img src="images/photo9.jpg" /></a>
+      <a href="#" id="img10" class="lightbox"
+        ><img src="images/photo10.jpg"
+      /></a>
+      <a href="#" id="img11" class="lightbox"
+        ><img src="images/photo11.jpg"
+      /></a>
+      <a href="#" id="img12" class="lightbox"
+        ><img src="images/photo12.jpg"
+      /></a>
+      <a href="#" id="img13" class="lightbox"
+        ><img src="images/photo13.jpg"
+      /></a>
+      <a href="#" id="img14" class="lightbox"
+        ><img src="images/photo14.jpg"
+      /></a>
+      <a href="#" id="img15" class="lightbox"
+        ><img src="images/photo15.jpg"
+      /></a>
+      <a href="#" id="img16" class="lightbox"
+        ><img src="images/photo16.jpg"
+      /></a>
+      <a href="#" id="img17" class="lightbox"
+        ><img src="images/photo17.jpg"
+      /></a>
+      <a href="#" id="img18" class="lightbox"
+        ><img src="images/photo18.jpg"
+      /></a>
+    </section>
 
-    <a href="#" id="img9" class="lightbox"><img src="images/photo9.jpg" /></a>
-    <a href="#" id="img10" class="lightbox"><img src="images/photo10.jpg" /></a>
-    <a href="#" id="img11" class="lightbox"><img src="images/photo11.jpg" /></a>
-    <a href="#" id="img12" class="lightbox"><img src="images/photo12.jpg" /></a>
+    <!-- SLIDESHOW SECTION -->
+    <section id="slideshowSection">
+      <h2>Automatic Slideshow</h2>
 
-    <a href="#" id="img13" class="lightbox"><img src="images/photo13.jpg" /></a>
-    <a href="#" id="img14" class="lightbox"><img src="images/photo14.jpg" /></a>
-    <a href="#" id="img15" class="lightbox"><img src="images/photo15.jpg" /></a>
-    <a href="#" id="img16" class="lightbox"><img src="images/photo16.jpg" /></a>
+      <div class="slideshow-wrapper">
+        <div class="slideshow">
+          <img src="images/photo1.jpg" />
+          <img src="images/photo2.jpg" />
+          <img src="images/photo3.jpg" />
+          <img src="images/photo4.jpg" />
+          <img src="images/photo5.jpg" />
+          <img src="images/photo6.jpg" />
+          <img src="images/photo7.jpg" />
+          <img src="images/photo8.jpg" />
+          <img src="images/photo9.jpg" />
+          <img src="images/photo10.jpg" />
+        </div>
+      </div>
+    </section>
 
-    <a href="#" id="img17" class="lightbox"><img src="images/photo17.jpg" /></a>
-    <a href="#" id="img18" class="lightbox"><img src="images/photo18.jpg" /></a>
+    <!-- TOGGLE SCRIPT -->
+    <script>
+      function showSection(sectionID) {
+        document
+          .querySelectorAll("section")
+          .forEach((sec) => sec.classList.remove("active"));
+        document.getElementById(sectionID).classList.add("active");
+      }
+    </script>
   </body>
 </html>
